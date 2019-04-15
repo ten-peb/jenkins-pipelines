@@ -9,7 +9,7 @@
 //// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 ////
 
-node "master" {
+node ("master") {
    def String frontend_repo = "git@github.com:tenna-llc/frontend-web.git"
    def String webdir = "frontend-web"
    def String myrepo = "git@github.com:ten-peb/jenkins-pipelines.git"
