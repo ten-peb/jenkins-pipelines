@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  frontendweb:
+    hostname: frontend-web
+    domain: dv1.tenna.com
+    build: .
+    container_name: frontend-web
+    ports:
+      - "9080:80"
+    volumes:
+      - frontend-web-www:/var/www
+
+volumes:
+  frontend-web-www:

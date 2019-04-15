@@ -1,0 +1,36 @@
+///////////////////////////////////////////////////////////////////////
+////
+//// Pipeline designed to spin up a Docker container hosting NPM
+//// and the front end web code installing the code and starting
+//// NPM
+////
+//// Author: Peter L. Berghold <pberghold@tenna.com>
+////
+//// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+////
+
+node "master" {
+   def String frontend_repo = "git@github.com:tenna-llc/frontend-web.git"
+   def String webdir = "frontend-web"
+   def String myrepo = "git@github.com:ten-peb/jenkins-pipelines.git"
+
+   stage("Setup"){
+      dir("front-end"){
+        checkout([$class: 'GitSCM',
+       		branches: [[name: '*/master' ]],
+                doGenerateSubmoduleConfigurations: false,
+                extensions: [[$class: 'RelativeTargetDirectory',
+                relativeTargetDir: webdir ]],
+                submoduleCfg: [],
+                userRemoteConfigs: [[url: baseurl + '/' + reponame ]]])
+         }
+      }
+   }
+   stage("Build Container"){
+      dir("front-end"){
+        sh("docker-compose up -d --build")
+      }
+   }
+   stage("Run Tests"){
+   }
+}
