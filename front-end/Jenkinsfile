@@ -13,7 +13,7 @@ node "master" {
    def String frontend_repo = "git@github.com:tenna-llc/frontend-web.git"
    def String webdir = "frontend-web"
    def String myrepo = "git@github.com:ten-peb/jenkins-pipelines.git"
-
+   ansiColor("gnome-terminal"){
    stage("Setup"){
       dir("front-end"){
         checkout([$class: 'GitSCM',
@@ -25,12 +25,13 @@ node "master" {
                 userRemoteConfigs: [[url: baseurl + '/' + reponame ]]])
          }
       }
-   }
+ 
    stage("Build Container"){
       dir("front-end"){
         sh("docker-compose up -d --build")
       }
    }
    stage("Run Tests"){
+   }
    }
 }
